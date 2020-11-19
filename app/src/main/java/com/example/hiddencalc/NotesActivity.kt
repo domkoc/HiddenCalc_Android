@@ -1,20 +1,30 @@
 package com.example.hiddencalc
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.hiddencalc.adapter.NoteAdapter
+import com.example.hiddencalc.data.Note
+import kotlinx.android.synthetic.main.activity_notes.*
+import java.util.*
 
 class NotesActivity : AppCompatActivity() {
+
+    private lateinit var noteAdapter: NoteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes)
-        setSupportActionBar(findViewById(R.id.toolbar))
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        noteAdapter = NoteAdapter(this)
+        rwNote.adapter = noteAdapter
+
+        btnAdd.setOnClickListener {
+            noteAdapter.addNote(
+                Note(
+                    etNote.text.toString(),
+                    Date(System.currentTimeMillis()).toString()
+                )
+            )
         }
     }
 }
