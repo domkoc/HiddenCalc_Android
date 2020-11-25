@@ -9,7 +9,7 @@ import com.example.hiddencalc.R
 import com.example.hiddencalc.data.Note
 import kotlinx.android.synthetic.main.note_row.view.*
 
-class NoteAdapter(val context: Context) : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
+class NoteAdapter() : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
 
     val noteItems = mutableListOf<Note>(
         Note("Note1", "2020. okt"),

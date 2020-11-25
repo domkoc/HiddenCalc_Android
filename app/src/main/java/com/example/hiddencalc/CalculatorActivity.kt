@@ -89,6 +89,14 @@ class CalculatorActivity : AppCompatActivity() {
             }
         }
 
+        //emulator miatt:
+        tvExpression.setOnClickListener {
+            if (tvResult.text == "1234") {
+                val notesIntent = Intent(this@CalculatorActivity, MenuActivity::class.java)
+                startActivity(notesIntent)
+            }
+        }
+
     }
 
     fun appendOnExpresstion(string: String, canClear: Boolean) {
@@ -118,13 +126,8 @@ class CalculatorActivity : AppCompatActivity() {
             acceleration = acceleration * 0.9f + delta
             if (acceleration > 12) {
                 if (tvResult.text == "1234") {
-                    val notesIntent = Intent(this@CalculatorActivity, NotesActivity::class.java)
+                    val notesIntent = Intent(this@CalculatorActivity, MenuActivity::class.java)
                     startActivity(notesIntent)
-                }
-                if (tvResult.text == "12345") {
-                    val listimages = arrayOf<String?>("http://www.personal.psu.edu/oeo5025/jpg.jpg")
-                    ImageViewer.Builder<Any?>(this@CalculatorActivity, listimages)
-                        .show()
                 }
             }
         }

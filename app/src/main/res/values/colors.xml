@@ -5,4 +5,11 @@
     <color name="colorAccent">#FF4081</color>
     <color name="actionButton">#F57C00</color>
     <color name="numberButton">#455A64</color>
+    <color name="background">#FFFFFF</color>
+    <color name="foreground">#121212</color>
+    <color name="colorNote0">#bcbcbc</color>
+    <color name="colorNote1">#F28B82</color>
+    <color name="colorNote2">#CCFF90</color>
+    <color name="colorNote3">#CBF0F8</color>
+    <color name="snackBarBackground">#FFFFFF</color>
 </resources>

@@ -1,3 +1,5 @@
 package com.example.hiddencalc.data
 
-data class Note(val noteText: String, val createDate: String)
+import java.io.Serializable
+
+data class Note(val noteText: String, val createDate: String) : Serializable
