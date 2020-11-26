@@ -21,7 +21,7 @@ import java.io.File
 import java.util.*
 import kotlin.concurrent.thread
 
-class PhotosFragment : Fragment() {
+class PhotosFragment : Fragment(), PhotoAdapter.OnPhotoSelectedListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var photoAdapter: PhotoAdapter
@@ -33,7 +33,7 @@ class PhotosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        photoAdapter = PhotoAdapter()
+        photoAdapter = PhotoAdapter(this)
         rwPhoto.adapter = photoAdapter
 
         btnAdd.setOnClickListener {
@@ -70,12 +70,6 @@ class PhotosFragment : Fragment() {
                     photoAdapter.addPhoto(newPhoto)
                 }
             }
-
-            //You can get File object from intent
-            val file:File = ImagePicker.getFile(data)!!
-
-            //You can also get File Path from intent
-            val filePath:String = ImagePicker.getFilePath(data)!!
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(activity, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
         } else {
@@ -85,7 +79,7 @@ class PhotosFragment : Fragment() {
 
     private fun initRecyclerView() {
         recyclerView = rwPhoto
-        photoAdapter = PhotoAdapter()
+        photoAdapter = PhotoAdapter(this)
         loadItemsInBackground()
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = photoAdapter
@@ -98,5 +92,13 @@ class PhotosFragment : Fragment() {
                 photoAdapter.update(items)
             }
         }
+    }
+
+    override fun onPhotoSelected(photo: String, date: String) {
+        val showDetailsIntent = Intent()
+        showDetailsIntent.setClass(context?.applicationContext!!, PhotoViewerActivity::class.java)
+        showDetailsIntent.putExtra(PhotoViewerActivity.PHOTO_URI, photo)
+        showDetailsIntent.putExtra(PhotoViewerActivity.PHOTO_DATE, date)
+        startActivity(showDetailsIntent)
     }
 }

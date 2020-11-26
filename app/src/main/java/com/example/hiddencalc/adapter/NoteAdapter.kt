@@ -8,8 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hiddencalc.R
 import com.example.hiddencalc.data.Note
 import kotlinx.android.synthetic.main.note_row.view.*
+import java.util.*
 
-class NoteAdapter() : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
+class NoteAdapter internal constructor(private val listener: OnNoteSelectedListener?) : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
+
+    interface OnNoteSelectedListener {
+        fun onNoteSelected(note: String, date: String)
+    }
 
     val noteItems = mutableListOf<Note>(/*
         Note("Note1", "2020. okt"),
@@ -42,8 +47,11 @@ class NoteAdapter() : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvNote = itemView.tvNote
         val tvDate = itemView.tvDate
+        init {
+            itemView.setOnClickListener { listener?.onNoteSelected(tvNote.text.toString(), tvDate.text.toString())}
+        }
     }
 }
