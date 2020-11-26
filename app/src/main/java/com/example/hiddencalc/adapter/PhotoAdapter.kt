@@ -1,10 +1,12 @@
 package com.example.hiddencalc.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hiddencalc.R
+import com.example.hiddencalc.data.Note
 import com.example.hiddencalc.data.Photo
 import kotlinx.android.synthetic.main.note_row.view.tvDate
 import kotlinx.android.synthetic.main.photo_row.view.*
@@ -20,7 +22,7 @@ class PhotoAdapter() : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val photo = photoItems[position]
-        holder.ivPhoto.setImageURI(photo.photoPath)
+        holder.ivPhoto.setImageURI(Uri.parse(photo.photoPath))
         holder.tvDate.text = photo.createDate
     }
 
@@ -29,6 +31,12 @@ class PhotoAdapter() : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
     fun addPhoto(photo: Photo) {
         photoItems.add(photo)
         notifyItemInserted(photoItems.lastIndex)
+    }
+
+    fun update(photos: List<Photo>) {
+        photoItems.clear()
+        photoItems.addAll(photos)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -11,11 +11,11 @@ import kotlinx.android.synthetic.main.note_row.view.*
 
 class NoteAdapter() : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
 
-    val noteItems = mutableListOf<Note>(
+    val noteItems = mutableListOf<Note>(/*
         Note("Note1", "2020. okt"),
         Note("Note2", "2020. sept"),
         Note("Note3", "2020. nov")
-    )
+    */)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_row, parent, false)
@@ -34,6 +34,12 @@ class NoteAdapter() : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
     fun addNote(note: Note) {
         noteItems.add(note)
         notifyItemInserted(noteItems.lastIndex)
+    }
+
+    fun update(notes: List<Note>) {
+        noteItems.clear()
+        noteItems.addAll(notes)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
